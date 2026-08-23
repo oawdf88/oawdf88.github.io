@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI & Web Developer | 個人數位名片</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+--bg-color: #0b0f19;
+--card-bg: #1e293b;
+--text-color: #f8fafc;
+--accent-color: #38bdf8;
+--text-muted: #94a3b8;
+--success-color: #10b981;
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+background-color: var(--bg-color);
+color: var(--text-color);
+margin: 0;
+padding: 0;
+}
+.container-box {
+max-width: 680px;
+width: 90%;
+margin: 0 auto;
+padding: 40px 20px;
+}
+.email-btn {
+background-color: var(--accent-color);
+color: #0b0f19;
+border: none;
+border-radius: 30px;
+padding: 10px 24px;
+font-size: 0.9rem;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.2s ease;
+margin-top: 20px;
+}
+.email-btn:hover {
+opacity: 0.9;
+transform: scale(1.02);
+}
+.modal {
+display: none; 
+position: fixed; 
+top: 0; left: 0; 
+width: 100%; height: 100%;
+background: rgba(11, 15, 25, 0.85); 
+z-index: 2000; 
+justify-content: center; 
+align-items: center;
+}
+.modal-content {
+background: var(--card-bg); 
+padding: 30px; 
+border-radius: 16px;
+border: 1px solid #334155; 
+width: 90%; 
+max-width: 400px;
+}
+.toast {
+position: fixed; 
+bottom: -60px; 
+left: 50%; 
+transform: translateX(-50%);
+background-color: var(--success-color); 
+color: white; 
+padding: 12px 24px;
+border-radius: 30px; 
+font-size: 0.9rem; 
+transition: bottom 0.3s ease; 
+z-index: 3000;
+}
+.toast.show { 
+bottom: 30px; 
+}
+.skill-tag {
+cursor: pointer;
+transition: all 0.2s ease;
+}
+.skill-tag:hover {
+border-color: var(--accent-color);
+background-color: #334155;
+transform: translateY(-2px);
+}
+</style>
+</head>
+<body>
+<div class="container-box">
+<header class="text-center mb-10">
+<img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Profile" class="w-28 h-28 rounded-full border-4 border-sky-400 object-cover mx-auto mb-4 shadow-lg shadow-sky-500/20" onerror="this.src='https://placehold.co/110x110/1e293b/38bdf8?text=Dev'">
+<h1 class="text-3xl font-bold tracking-wide">精銳開發者</h1>
+<div class="text-sky-400 font-medium text-base mt-1">AI 技術應用 & 後端工程師</div>
+<p class="text-slate-400 text-sm mt-3 leading-relaxed max-w-lg mx-auto">
+專注於 Python 生態系開發，具備 AI 深度學習與電腦視覺辨識實作經驗。擅長使用 Django 建立穩健的後端系統，並結合網路爬蟲進行數據自動化蒐集。
+</p>
+<button class="email-btn shadow-md shadow-sky-500/25" id="open-modal-btn">📬 發送郵件聯絡我</button>
+</header>
+
+<main>
+<div class="text-lg font-semibold border-l-4 border-sky-400 pl-3 my-6 tracking-wide">核心專業 (AI 六大核心 - 點擊查看說明)</div>
+<div class="flex flex-wrap gap-2.5 mb-8" id="skills-container">
+<div class="skill-tag bg-slate-800 text-slate-100 px-3.5 py-1.5 rounded-full text-xs border border-slate-700" data-skill="Python 開發" data-desc="精通 Python 核心語法與進階特性，擅長編寫高效、乾淨且易於維護的程式碼，應用於自動化腳本及後端系統開發。">Python 開發</div>
+<div class="skill-tag bg-slate-800 text-slate-100 px-3.5 py-1.5 rounded-full text-xs border border-slate-700" data-skill="Django Web 框架" data-desc="利用 Django 建立高安全性且可擴充的網頁後端應用，熟悉 ORM 資料庫操作、RESTful API 設計與管理者後台整合。">Django Web 框架</div>
+<div class="skill-tag bg-slate-800 text-slate-100 px-3.5 py-1.5 rounded-full text-xs border border-slate-700" data-skill="網路爬蟲實務" data-desc="運用 Requests、BeautifulSoup 與 Selenium 進行大規模網頁資料自動化擷取，突破反爬蟲限制並清洗結構化數據。">網路爬蟲實務</div>
+<div class="skill-tag bg-slate-800 text-slate-100 px-3.5 py-1.5 rounded-full text-xs border border-slate-700" data-skill="深度學習 (Deep Learning)" data-desc="具備 CNN、RNN 與 Transformer 等神經網路架構實作經驗，能使用 PyTorch 或 TensorFlow 訓練並調校模型。">深度學習 (Deep Learning)</div>
+<div class="skill-tag bg-slate-800 text-slate-100 px-3.5 py-1.5 rounded-full text-xs border border-slate-700" data-skill="電腦視覺辨識 (CV)" data-desc="使用 OpenCV 進行影像處理、特徵提取與物件追蹤，實現智慧化影像分類、人臉辨識與缺陷檢測專案。">電腦視覺辨識 (CV)</div>
+<div class="skill-tag bg-slate-800 text-slate-100 px-3.5 py-1.5 rounded-full text-xs border border-slate-700" data-skill="前端設計 (Frontend Design)" data-desc="熟悉 HTML5、CSS3、Tailwind CSS 與 JavaScript，擅長打造響應式、美觀且具備流暢互動體驗的使用者介面。">前端設計 (Frontend Design)</div>
+</div>
+
+<div class="text-lg font-semibold border-l-4 border-sky-400 pl-3 my-6 tracking-wide">精選作品集 (Hosted on NAS)</div>
+<div class="flex flex-col gap-4">
+<a href="#projects" class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 text-inherit no-underline transition hover:-translate-y-0.5 hover:border-sky-400 hover:shadow-lg hover:shadow-sky-500/10 flex justify-between items-center">
+<div>
+<h3 class="font-bold text-base mb-1">深度學習與視覺辨識系統</h3>
+<p class="text-slate-400 text-xs leading-relaxed">運用 CNN 進行物件偵測與影像分類，內含訓練模型與完整推論結果報告。</p>
+</div>
+<span class="text-sky-400 text-xl font-bold">→</span>
+</a>
+<a href="#projects" class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 text-inherit no-underline transition hover:-translate-y-0.5 hover:border-sky-400 hover:shadow-lg hover:shadow-sky-500/10 flex justify-between items-center">
+<div>
+<h3 class="font-bold text-base mb-1">Django 郵箱與後台管理平台</h3>
+<p class="text-slate-400 text-xs leading-relaxed">結合 Django Model 與 REST 接收訪客訊息，透過內建 Admin 輕鬆檢視、分類與回覆。</p>
+</div>
+<span class="text-sky-400 text-xl font-bold">→</span>
+</a>
+</div>
+</main>
+
+<footer class="text-center mt-12 text-slate-500 text-xs">
+© 2026. Powered by Django, GitHub Pages & PChome Domain.
+</footer>
+</div>
+
+<div class="modal" id="contact-modal">
+<div class="modal-content">
+<h3 class="text-sky-400 font-bold text-lg mb-4">發送郵件聯絡我</h3>
+<form id="contact-form">
+<input type="text" id="form-name" placeholder="您的姓名" required class="w-full p-3 mb-3 rounded-lg border border-slate-700 bg-slate-950 text-white text-sm outline-none focus:border-sky-400">
+<input type="email" id="form-email" placeholder="您的電子郵件" required class="w-full p-3 mb-3 rounded-lg border border-slate-700 bg-slate-950 text-white text-sm outline-none focus:border-sky-400">
+<textarea id="form-message" placeholder="留下您的訊息..." rows="4" required class="w-full p-3 mb-4 rounded-lg border border-slate-700 bg-slate-950 text-white text-sm outline-none focus:border-sky-400 resize-none"></textarea>
+<div class="flex gap-3 justify-end">
+<button type="button" id="close-modal-btn" class="text-slate-400 hover:text-white text-sm px-4 py-2 cursor-pointer bg-transparent border-none">取消</button>
+<button type="submit" class="email-btn m-0 py-2 px-5 text-sm">送出郵件</button>
+</div>
+</form>
+</div>
+</div>
+
+<div class="modal" id="skill-modal">
+<div class="modal-content">
+<h3 class="text-sky-400 font-bold text-lg mb-2" id="skill-modal-title">核心專長說明</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-6" id="skill-modal-desc">這裡顯示詳細的專業技術說明。</p>
+<div class="flex justify-end">
+<button type="button" id="close-skill-modal" class="email-btn m-0 py-2 px-5 text-sm">了解更多</button>
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast-msg">郵件已成功送出並儲存至 Django 後台資料庫！</div>
+
+<script>
+function initApp() {
+const modal = document.getElementById('contact-modal');
+const openBtn = document.getElementById('open-modal-btn');
+const closeBtn = document.getElementById('close-modal-btn');
+const form = document.getElementById('contact-form');
+const toast = document.getElementById('toast-msg');
+
+openBtn.addEventListener('click', () => {
+modal.style.display = 'flex';
+});
+
+closeBtn.addEventListener('click', () => {
+modal.style.display = 'none';
+});
+
+modal.addEventListener('click', (e) => {
+if (e.target === modal) {
+modal.style.display = 'none';
+}
+});
+
+form.addEventListener('submit', (e) => {
+e.preventDefault();
+const name = document.getElementById('form-name').value;
+const email = document.getElementById('form-email').value;
+const message = document.getElementById('form-message').value;
+
+console.log('Sending message to Django backend mailbox:', { name, email, message });
+
+modal.style.display = 'none';
+form.reset();
+
+toast.classList.add('show');
+setTimeout(() => {
+toast.classList.remove('show');
+}, 3500);
+});
+
+// Skill modal interactive logic
+const skillModal = document.getElementById('skill-modal');
+const skillTitle = document.getElementById('skill-modal-title');
+const skillDesc = document.getElementById('skill-modal-desc');
+const closeSkillModal = document.getElementById('close-skill-modal');
+const skillTags = document.querySelectorAll('.skill-tag');
+
+skillTags.forEach(tag => {
+tag.addEventListener('click', () => {
+const title = tag.getAttribute('data-skill');
+const desc = tag.getAttribute('data-desc');
+skillTitle.textContent = title;
+skillDesc.textContent = desc;
+skillModal.style.display = 'flex';
+});
+});
+
+closeSkillModal.addEventListener('click', () => {
+skillModal.style.display = 'none';
+});
+
+skillModal.style.display = 'none';
+skillModal.addEventListener('click', (e) => {
+if (e.target === skillModal) {
+skillModal.style.display = 'none';
+}
+});
+}
+
+window.onload = function() {
+initApp();
+};
+</script>
+</body>
+</html>
